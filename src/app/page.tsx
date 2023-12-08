@@ -2,15 +2,15 @@ import { Metadata } from "next";
 import Router from "./router"
 
 export const metadata: Metadata = {
-  description: "Your next betting assistant",
+  description: "Don't you love some chicken?",
   keywords: [
-    "betting",
-    "gambling",
+    "chicken",
+    "google",
     "free money",
     "league of legends",
-    "gambling",
-    "tailing service",
-    "tail",
+    "wow i want some kfc",
+    "charity",
+    "cat pictures",
   ],
   themeColor: [
     {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
       color: "#090F15"
     },
   ],
-  title: "Silva",
+  title: "Route11",
   manifest: "/manifest.json",
   icons: [
     { rel: "apple-touch-icon", url: "/apple-icon.png" },
