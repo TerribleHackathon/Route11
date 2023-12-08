@@ -9,6 +9,8 @@ export default function Page() {
             <div className="flex h-screen w-screen md:w-2/3 bg-gray-300">
                 {/* GPS // top // right */}
             </div>
+            <div className="flex absolute top-4 left-4 h-[3rem] rounded-md w-[3.5rem] bg-white"></div>
+            <div className="flex absolute top-4 right-4 h-[3rem] rounded-md w-[9rem] bg-white"></div>
             <div className="flex flex-col rounded-t-2xl absolute bottom-0 bg-white w-screen h-1/2">
                 {/* bottom // left */}
 
