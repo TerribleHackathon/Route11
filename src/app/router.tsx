@@ -11,6 +11,16 @@ export default function Router() {
 
     if (isMobile && isPWA) return (<NavigationPage />)
 
+    return (
+        <>
+            {isPWA ? (
+                <p>This site is accessed through a service worker (PWA).</p>
+            ) : (
+                <p>This site is not accessed through a service worker.</p>
+            )}
+        </>
+    )
+
     if (isMobile) return (
         <>
             <div className="flex h-screen w-screen bg-gray-200">
