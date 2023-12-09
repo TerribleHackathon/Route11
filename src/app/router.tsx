@@ -10,12 +10,12 @@ export default function Router() {
     const isPWA = useIsPWA();
     const isMobile = useIsMobile();
 
-    if (isMobile && isPWA) return (<NavigationPage />)
+    // if (isMobile && isPWA) return (<NavigationPage />)
 
     return (
         <>
             {isPWA ? (
-                <p>This site is accessed through a service worker (PWA).</p>
+                <p>User Agent: {navigator.userAgent}</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
             )}

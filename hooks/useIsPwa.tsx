@@ -13,7 +13,6 @@ const useIsPWA = () => {
         return localStorage.getItem('appInstalled') === 'yes';
       };
 
-
       window.addEventListener('appinstalled', () => {
         localStorage.setItem('appInstalled', 'yes');
       });
