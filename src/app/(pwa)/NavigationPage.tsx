@@ -1,6 +1,7 @@
 'use client'
 
 import { Formik } from 'formik';
+import Map from "../(components)/Map"
 import { ArrowRight } from 'lucide-react';
 
 export default function Page() {
@@ -8,10 +9,11 @@ export default function Page() {
         <div className="flex text-black font-opensans w-full h-screen flex-col md:flex-row-reverse bg-red-300">
             <div className="flex h-screen w-screen md:w-2/3 bg-gray-300">
                 {/* GPS // top // right */}
+                <Map />
             </div>
             <div className="flex absolute top-4 left-4 h-[3rem] rounded-md w-[3.5rem] bg-white">s</div>
             <div className="flex absolute top-4 right-4 h-[3rem] rounded-md w-[9rem] bg-white"></div>
-            <div className="flex flex-col rounded-t-2xl absolute bottom-0 bg-white w-screen h-1/2">
+            <div className="flex flex-col rounded-t-2xl absolute bottom-0 bg-white w-screen h-1/2 md:h-full md:w-1/2 md:left-0 md:rounded-t-none">
                 {/* bottom // left */}
 
                 <Formik
@@ -64,7 +66,7 @@ export default function Page() {
                                 onBlur={handleBlur}
                                 value={values.endLocation}
                             />
-                            <div className="flex mt-[0.8rem]"> 
+                            <div className="flex mt-[0.8rem]">
                                 <input
                                     type="password"
                                     name="password"
