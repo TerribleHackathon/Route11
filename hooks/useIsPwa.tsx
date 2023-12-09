@@ -18,8 +18,8 @@ const useIsPWA = () => {
     const checkServiceWorker = async () => {
       if ('serviceWorker' in navigator) {
         try {
-          const registration = await navigator.serviceWorker.getRegistration();
-          setIsPWA(!!registration);
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          setIsPWA(registrations.length > 0);
         } catch (error) {
           console.error('Error checking service worker registration:', error);
         }
