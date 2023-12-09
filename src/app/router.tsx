@@ -1,17 +1,17 @@
 "use client"
 
-import useIsControlledByServiceWorker from "../../hooks/useIsControlledByServiceWorker";
 import useIsMobile from "../../hooks/useIsMobile";
+import useQueryString from "../../hooks/useQueryString";
 import PersonIcon from "../../icons/Person"
 import { useEffect, useState } from "react";
 
 export default function Router() {
-    const isControlledByServiceWorker = useIsControlledByServiceWorker();
+    const isPwa = useQueryString("home", "true");
     const isMobile = useIsMobile();
 
     return (
         <>
-            {isControlledByServiceWorker ? (
+            {isPwa ? (
                 <p>this is accessed through a service worker</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
