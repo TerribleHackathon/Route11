@@ -15,7 +15,7 @@ export default function Router() {
     return (
         <>
             {isPWA ? (
-                <p>User Agent: {navigator.userAgent}</p>
+                <p>User Agent: {JSON.stringify(navigator)}</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
             )}
