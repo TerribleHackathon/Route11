@@ -14,7 +14,7 @@ export default function Router() {
     // if (isMobile && isPWA) return (<NavigationPage />)
 
     useEffect(() => {
-        let data = {};
+        let data = {}
         for (let property in navigator) {
             if (typeof (navigator as any)[property] !== 'function') {
                 (data as any)[property] = (navigator as any)[property];
@@ -25,8 +25,8 @@ export default function Router() {
 
     return (
         <>
-            {isPWA ? (
-                <p>{JSON.stringify(navigator)}</p>
+            {true ? (
+                <p>{JSON.stringify(navigatorData)}</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
             )}
