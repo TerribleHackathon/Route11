@@ -6,8 +6,6 @@ import useIsMobile from "../../hooks/useIsMobile";
 import PersonIcon from "../../icons/Person"
 import { useEffect } from "react";
 
-
-
 export default function Router() {
     const isPWA = useIsPWA();
     const isMobile = useIsMobile();
