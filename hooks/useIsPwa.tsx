@@ -10,14 +10,13 @@ const useIsPWA = () => {
       };
 
       const isStandaloneAndroid = () => {
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          setIsPWA(true);
-        });
-        return !!deferredPrompt;
+        return localStorage.getItem('appInstalled') === 'yes';
       };
+
+
+      window.addEventListener('appinstalled', () => {
+        localStorage.setItem('appInstalled', 'yes');
+      });
 
       if (isStandaloneIOS() || isStandaloneAndroid()) {
         setIsPWA(true)
