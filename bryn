@@ -1,0 +1,102 @@
+const KFC_CORDS = [
+  [-36.810466, 174.725334],
+  [-36.852169, 174.744898],
+  [-36.845877, 174.766899],
+  [-36.847980, 174.781531],
+  [-36.870182, 174.711398],
+  [-36.871066, 174.776536],
+  [-36.882515, 174.732349],
+  [-36.886678, 174.747344],
+  [-36.892618, 174.796548],
+  [-36.897945, 174.848354],
+  [-36.880465, 174.855749],
+  [-36.900546, 174.898816],
+]
+
+
+// WHAT THIS REQUIRES IN ORDER TO WORK:
+// MATRIX OF TIMES BETWEEN KFC LOCATIONS (timeMatrix)
+// LIST OF TIMES FROM START LOC TO ANY GIVEN KFC (startToFirst)
+// LIST OF TIMES FROM END LOC TO ANY GIVEN KFC (lastToEnd)
+const GenRoutes = (curTime, Deadline, cordsList, timeMatrix, startToFirst, lastToEnd) => {
+  // Function that returns all possible permutations and subsets within a lower and upper bound of stores
+  function getAllPermutationsAndSubsets(inputList, minLength, maxLength) {
+    const result = [];
+
+    // Helper function to generate permutations
+    function generatePermutations(arr, start, end) {
+      if (start === end) {
+        result.push([...arr]);
+        return;
+      }
+
+      for (let i = start; i <= end; i++) {
+        [arr[start], arr[i]] = [arr[i], arr[start]];
+        generatePermutations(arr, start + 1, end);
+        [arr[start], arr[i]] = [arr[i], arr[start]]; // Backtrack
+      }
+    }
+
+    // Helper function to generate subsets
+    function generateSubsets(arr, current, index) {
+      if (index === arr.length) {
+        if (current.length >= minLength && current.length <= maxLength) {
+          generatePermutations(current, 0, current.length - 1);
+        }
+        return;
+      }
+
+      generateSubsets(arr, current, index + 1);
+      generateSubsets(arr, current.concat(arr[index]), index + 1);
+    }
+
+    generateSubsets(inputList, [], 0);
+
+    return result;
+  }
+  function findTime(routeList) {
+    // Add start to first KFC
+    let totalTime = startToFirst[routeList[0]];
+    let i = 1
+    // Add all KFC - KFC lengths
+    while (i < routeList.length) {
+      totalTime += timeMatrix[routeList[i - 1]][routeList[i - 1]]
+      i++;
+    }
+    // Add last KFC to end
+    totalTime += lastToEnd[routeList[routeList.length - 1]];
+    return totalTime;
+  }
+  //TODO : FIND MIN AND MAX LENGTH FROM MATRIX
+  const minLength = 1;
+  const maxLength = 10;
+  const result = getAllPermutationsAndSubsets(cordsList, minLength, maxLength);
+  result = result.sort((a, b) => b.length - a.length);
+  if (result == []) {
+    return;
+  }
+  maxTime = Deadline - curTime;
+  // Find first route that works time-wise (max length bc of sort)
+  let i = 0;
+  while (i <= result.length) {
+    if (findTime(result[i]) > maxTime) {
+      i++;
+    }
+  }
+
+  let doableLength = result[i === 0 ? i : i - 1].length;
+
+  let lowestIndexTime = [i, findTime(result[i])];
+  while (i <= result.length) {
+    if (result[i].length === doableLength) {
+      if (findTime(result[i]) < lowestIndexTime[1]) {
+        lowestIndexTime[1] = findTime(result[i]);
+        lowestIndexTime[0] = i;
+      }
+      i++;
+    } else {
+      break;
+    }
+  }
+  return result[lowestIndexTime[0]]
+}
