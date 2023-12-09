@@ -17,7 +17,7 @@ const useIsPWA = () => {
     // };
     const checkServiceWorker = async () => {
       const isStandaloneAndroid = () => {
-        return 'standalone' in window.navigator && window.navigator.standalone;
+        return /android/i.test(navigator.userAgent) && window.matchMedia('(display-mode: standalone)').matches;
       };
 
       const isStandaloneDisplayMode = () => {
@@ -29,15 +29,6 @@ const useIsPWA = () => {
         return;
       } else {
         console.log('Not running in standalone mode on Android');
-      }
-
-      if ('serviceWorker' in navigator) {
-        try {
-          const registrations = await navigator.serviceWorker.getRegistrations();
-          setIsPWA(registrations.length > 0);
-        } catch (error) {
-          console.error('Error checking service worker registration:', error);
-        }
       }
     };
 
