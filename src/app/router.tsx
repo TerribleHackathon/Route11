@@ -1,18 +1,17 @@
 "use client"
 
-import NavigationPage from "./(pwa)/NavigationPage";
-import useIsPWA from "../../hooks/useIsPwa";
+import useIsControlledByServiceWorker from "../../hooks/useIsControlledByServiceWorker";
 import useIsMobile from "../../hooks/useIsMobile";
 import PersonIcon from "../../icons/Person"
 import { useEffect, useState } from "react";
 
 export default function Router() {
-    const isPWA = useIsPWA();
+    const isControlledByServiceWorker = useIsControlledByServiceWorker();
     const isMobile = useIsMobile();
 
     return (
         <>
-            {isPWA ? (
+            {isControlledByServiceWorker ? (
                 <p>this is accessed through a service worker</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
