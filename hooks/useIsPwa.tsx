@@ -10,7 +10,13 @@ const useIsPWA = () => {
       };
 
       const isStandaloneAndroid = () => {
-        return window.matchMedia('(display-mode: standalone)').matches;
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          setIsPWA(true);
+        });
+        return !!deferredPrompt;
       };
 
       if (isStandaloneIOS() || isStandaloneAndroid()) {
