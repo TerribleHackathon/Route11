@@ -9,24 +9,11 @@ import { useEffect, useState } from "react";
 export default function Router() {
     const isPWA = useIsPWA();
     const isMobile = useIsMobile();
-    const [navigatorData, setNavigatorData] = useState({});
-
-    // if (isMobile && isPWA) return (<NavigationPage />)
-
-    useEffect(() => {
-        let data = {}
-        for (let property in navigator) {
-            if (typeof (navigator as any)[property] !== 'function') {
-                (data as any)[property] = (navigator as any)[property];
-            }
-        }
-        setNavigatorData(data);
-    }, []);
 
     return (
         <>
-            {true ? (
-                <p>{JSON.stringify(navigatorData)}</p>
+            {isPWA ? (
+                <p>this is accessed through a service worker</p>
             ) : (
                 <p>This site is not accessed through a service worker.</p>
             )}

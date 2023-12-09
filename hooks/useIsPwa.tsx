@@ -1,34 +1,29 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-const useIsPWA = () => {
-  const [isPWA, setIsPWA] = useState(false);
+function useIsPwa() {
+    const [isPwa, setIsPwa] = useState(false);
 
-  useEffect(() => {
-    const checkServiceWorker = async () => {
-      const isStandaloneIOS = () => {
-        return ('standalone' in window.navigator) && (window.navigator as any).standalone;
-      };
+    useEffect(() => {
+        const setPwa = () => setIsPwa(true);
 
-      const isStandaloneAndroid = () => {
-        return localStorage.getItem('appInstalled') === 'yes';
-      };
+        window.addEventListener('appinstalled', setPwa);
 
-      window.addEventListener('appinstalled', () => {
-        localStorage.setItem('appInstalled', 'yes');
-      });
+        // Check if a service worker is controlling the page
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.ready.then((registration) => {
+                if (registration.active) {
+                    setPwa();
+                }
+            });
+        }
 
-      if (isStandaloneIOS() || isStandaloneAndroid()) {
-        setIsPWA(true)
-        return;
-      } else {
-        console.log('Not running in standalone mode');
-      }
-    }
+        // Cleanup
+        return () => {
+            window.removeEventListener('appinstalled', setPwa);
+        };
+    }, []);
 
-    checkServiceWorker();
-  }, []);
+    return isPwa;
+}
 
-  return isPWA;
-};
-
-export default useIsPWA;
+export default useIsPwa;
